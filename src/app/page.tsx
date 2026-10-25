@@ -1,10 +1,11 @@
 import { Suspense, type ReactNode } from "react";
 import EmployeeProfile from "@/components/employee-profile";
+import PostsExplorer from "@/components/posts-explorer";
 import RecentPostsPreview, { RecentPostsSkeleton } from "@/components/recent-posts-preview";
 import { EMPLOYEE_ID } from "@/lib/api";
 
 // The page itself does no data fetching, so the shell (title, intro, section
-// frames) is never blocked by a slow request.
+// frames, client explorer) is never blocked by a slow request.
 export default function Home() {
   return (
     <main className="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
@@ -37,6 +38,15 @@ export default function Home() {
           <Suspense fallback={<RecentPostsSkeleton />}>
             <RecentPostsPreview />
           </Suspense>
+        </Section>
+      </div>
+
+      <div className="mt-5">
+        <Section
+          title="Explore all posts"
+          where={`Client Component · fetched in the browser after a click · GET /posts?userId=${EMPLOYEE_ID}`}
+        >
+          <PostsExplorer />
         </Section>
       </div>
 

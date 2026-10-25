@@ -117,12 +117,15 @@ export default function PostsExplorer() {
             ))}
           </select>
         </div>
+        {/* aria-disabled instead of disabled: a disabled button loses keyboard
+            focus, so the user would be dropped back to the top of the page.
+            The inFlight ref still ignores clicks while a request is running. */}
         <button
           type="button"
           onClick={loadPosts}
-          disabled={isLoading}
+          aria-disabled={isLoading}
           aria-busy={isLoading}
-          className="min-h-11 cursor-pointer rounded-lg bg-indigo-700 px-5 text-sm font-semibold text-white transition-colors hover:bg-indigo-800 disabled:cursor-not-allowed disabled:bg-indigo-400"
+          className="min-h-11 cursor-pointer rounded-lg bg-indigo-700 px-5 text-sm font-semibold text-white transition-colors hover:bg-indigo-800 aria-disabled:cursor-not-allowed aria-disabled:bg-slate-500"
         >
           {buttonLabel}
         </button>

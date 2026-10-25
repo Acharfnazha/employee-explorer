@@ -1,5 +1,6 @@
 import { Suspense, type ReactNode } from "react";
 import EmployeeProfile from "@/components/employee-profile";
+import RecentPostsPreview, { RecentPostsSkeleton } from "@/components/recent-posts-preview";
 import { EMPLOYEE_ID } from "@/lib/api";
 
 // The page itself does no data fetching, so the shell (title, intro, section
@@ -27,7 +28,22 @@ export default function Home() {
             <EmployeeProfile />
           </Suspense>
         </Section>
+
+        <Section
+          title="Recent posts preview"
+          where={`Async Server Component in its own Suspense boundary · GET /posts?userId=${EMPLOYEE_ID}`}
+        >
+          {/* Only this boundary's content waits for the slow preview. */}
+          <Suspense fallback={<RecentPostsSkeleton />}>
+            <RecentPostsPreview />
+          </Suspense>
+        </Section>
       </div>
+
+      <footer className="mt-8 text-xs leading-5 text-slate-500">
+        Learning demo: the preview waits 2 seconds on purpose so its loading state is visible.
+        Data comes from JSONPlaceholder (sample records shown as fictional employees).
+      </footer>
     </main>
   );
 }
@@ -46,7 +62,7 @@ function ProfileSkeleton() {
   return (
     <div role="status" aria-live="polite">
       <span className="sr-only">Loading employee profile…</span>
-      <div className="grid gap-3 sm:grid-cols-3" aria-hidden="true">
+      <div className="grid gap-3" aria-hidden="true">
         {[0, 1, 2].map((cell) => (
           <div
             key={cell}

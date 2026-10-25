@@ -37,7 +37,7 @@ export default async function EmployeeProfile() {
 
   const { employee } = result;
   return (
-    <dl className="grid gap-3 text-sm sm:grid-cols-3">
+    <dl className="grid gap-3 text-sm">
       <div>
         <dt className="text-slate-500">Name</dt>
         <dd className="mt-0.5 text-base font-semibold text-slate-900">{employee.name}</dd>
